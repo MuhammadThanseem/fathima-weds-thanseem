@@ -264,7 +264,8 @@ function Card() {
 }
 
 export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDone: () => void }) {
-  // 0 sealed · 1 gold burst · 2 flap opens · 3 card slides out · 4 card fills the screen · 5 gone
+  // 0 sealed · 1 gold burst · 2 flap opens · 4 card grows in place to fill the screen · 5 gone
+  // (no zoom-out / card-rise step, so nothing jumps around)
   const [stage, setStage] = useState(0);
 
   const open = () => {
@@ -272,10 +273,9 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
     onOpen();
     setStage(1);
     setTimeout(() => setStage(2), 1500);
-    setTimeout(() => setStage(3), 2600);
-    setTimeout(() => setStage(4), 3900);
-    setTimeout(() => setStage(5), 4900);
-    setTimeout(onDone, 5500);
+    setTimeout(() => setStage(4), 2800);
+    setTimeout(() => setStage(5), 4000);
+    setTimeout(onDone, 4600);
   };
 
   return (
@@ -290,10 +290,7 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
         >
           <div style={{ position: "relative", width: "100%", maxWidth: 480, height: "100%", overflow: "hidden", containerType: "size", background: "radial-gradient(ellipse at 50% 30%, #fbf7f0, #ece4d6 75%)" }}>
             {/* envelope, scaled to cover the screen at a fixed aspect ratio */}
-            <motion.div
-              initial={false}
-              animate={stage === 2 || stage === 3 ? { scale: 0.64, y: "18%" } : { scale: 1, y: "0%" }}
-              transition={{ duration: stage >= 4 ? 0.9 : 1.1, ease: EASE }}
+            <div
               style={{ position: "absolute", left: "50%", top: "50%", translate: "-50% -50%", width: `max(100cqw, calc(100cqh * ${W} / ${H}))`, aspectRatio: `${W} / ${H}`, containerType: "size", perspective: 1400 }}
             >
               {/* inside of the envelope */}
@@ -305,18 +302,16 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                 animate={
                   stage >= 4
                     ? { left: "0%", top: "0%", width: "100%", height: "100%", borderRadius: 0 }
-                    : stage >= 3
-                      ? { left: "8%", top: "-40%", width: "84%", height: "62%", borderRadius: 6 }
-                      : { left: "8%", top: "26%", width: "84%", height: "62%", borderRadius: 6 }
+                    : { left: "8%", top: "26%", width: "84%", height: "62%", borderRadius: 6 }
                 }
-                transition={{ duration: stage >= 4 ? 0.9 : 1.2, ease: EASE }}
+                transition={{ duration: 1.1, ease: EASE }}
                 style={{ position: "absolute", zIndex: stage >= 4 ? 9 : 2, containerType: "inline-size" }}
               >
                 <Card />
               </motion.div>
 
               {/* side + bottom flaps */}
-              <motion.div animate={{ opacity: stage >= 4 ? 0 : 1, y: stage >= 4 ? "6%" : "0%" }} transition={{ duration: 0.7 }} style={{ position: "absolute", inset: 0, zIndex: 3 }}>
+              <motion.div animate={{ opacity: stage >= 4 ? 0 : 1 }} transition={{ duration: 0.7 }} style={{ position: "absolute", inset: 0, zIndex: 3 }}>
                 <Pocket />
               </motion.div>
 
@@ -325,7 +320,7 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                 initial={false}
                 animate={{ rotateX: stage >= 2 ? 180 : 0, opacity: stage >= 4 ? 0 : 1 }}
                 transition={{ duration: 1.2, ease: EASE }}
-                style={{ position: "absolute", left: 0, right: 0, top: 0, height: `${TIP * 100}%`, transformOrigin: "top center", transformStyle: "preserve-3d", zIndex: stage >= 3 ? 1 : 4 }}
+                style={{ position: "absolute", left: 0, right: 0, top: 0, height: `${TIP * 100}%`, transformOrigin: "top center", transformStyle: "preserve-3d", zIndex: stage >= 2 ? 1 : 4 }}
               >
                 <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", filter: "drop-shadow(0 3px 4px rgba(110,100,90,.28))" }}><TopFlapFace /></div>
                 <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateX(180deg)", clipPath: `polygon(0 0, 100% 0, 50% 100%)`, background: "linear-gradient(180deg,#ebe7e1,#f2efea)" }} />
@@ -337,9 +332,9 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                 aria-label="Open the invitation"
                 onClick={(e) => { e.stopPropagation(); open(); }}
                 animate={
-                  stage >= 2 ? { scale: 1.35, opacity: 0 } : stage === 1 ? { scale: [1, 0.88, 1.12, 1.04] } : { scale: 1 }
+                  stage >= 2 ? { opacity: 0 } : { opacity: 1 }
                 }
-                transition={{ duration: stage >= 2 ? 0.5 : 0.9, ease: "easeOut" }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className={stage === 0 ? "seal-idle" : undefined}
                 style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "30%", aspectRatio: "1", marginLeft: "-15%", marginTop: "-15%", zIndex: 6, background: "none", border: 0, padding: 0, cursor: "pointer", borderRadius: "50%" }}
               >
@@ -354,7 +349,7 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                   <span className="caps" style={{ fontSize: "2.6cqw", letterSpacing: ".32em", color: "#a08a5c", background: "rgba(247,246,243,.85)", padding: "4px 10px", borderRadius: 20 }}>Tap the seal to open</span>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       )}

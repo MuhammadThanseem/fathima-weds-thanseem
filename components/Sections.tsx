@@ -77,7 +77,7 @@ export function Welcome() {
 
       <Sparkles count={12} seed={2} />
 
-      <div style={{ position: "absolute", left: "16%", right: "16%", top: "17%", textAlign: "center", zIndex: 4, textShadow: "0 0 14px rgba(255,250,244,.95), 0 0 4px rgba(255,250,244,.9)" }}>
+      <div style={{ position: "absolute", left: "16%", right: "16%", top: "25%", textAlign: "center", zIndex: 4, textShadow: "0 0 14px rgba(255,250,244,.95), 0 0 4px rgba(255,250,244,.9)" }}>
         <motion.div {...fade(0.3)} style={{ fontSize: "1.05rem", color: "#6c6260", letterSpacing: ".02em" }}>Welcome to the</motion.div>
         <motion.div {...fade(0.5)} className="script" style={{ fontSize: "2.05rem", color: "#5f5452", lineHeight: 1.1 }}>{config.ceremony}</motion.div>
         <motion.div {...fade(0.7)} style={{ fontSize: "1.05rem", color: "#6c6260", marginTop: 2 }}>of</motion.div>

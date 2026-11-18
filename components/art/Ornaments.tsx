@@ -106,7 +106,7 @@ export function FiligreeBand() {
 
 /* ───────── Monogram crest: initials in a gilded laurel wreath ───────── */
 export function Monogram({ size = 120, color }: { size?: number; color?: string }) {
-  const [a, b] = config.monogram;
+  const [a, b] = config.initials.split(" ");
   const fill = color ?? "url(#gold)";
   const R = 47;
   const pt = (deg: number, rr = R) => [Math.cos((deg * Math.PI) / 180) * rr, Math.sin((deg * Math.PI) / 180) * rr];
@@ -138,7 +138,7 @@ export function Monogram({ size = 120, color }: { size?: number; color?: string 
 
 /* ───────── Gold wax seal for the envelope ───────── */
 export function WaxSeal() {
-  const [a, b] = config.monogram;
+  const [a, b] = config.initials.split(" ");
   const blob = "M0 -62 C 18 -64, 30 -52, 44 -46 C 60 -38, 64 -20, 62 0 C 66 20, 56 36, 44 46 C 30 58, 14 64, 0 62 C -18 66, -34 56, -46 44 C -60 30, -64 14, -62 -2 C -64 -22, -56 -36, -44 -46 C -32 -58, -16 -60, 0 -62Z";
   return (
     <svg viewBox="-70 -70 140 140" width="100%" height="100%" style={{ filter: "drop-shadow(0 8px 12px rgba(20,15,10,.45))" }} aria-hidden>

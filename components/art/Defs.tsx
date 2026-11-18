@@ -37,30 +37,37 @@ export default function Defs() {
           <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="9" result="t" />
           <feDisplacementMap in="SourceGraphic" in2="t" scale="5" result="d" />
           <feGaussianBlur in="d" stdDeviation="1.2" result="b" />
-          <feSpecularLighting in="b" surfaceScale="3" specularConstant="0.9" specularExponent="18" lightingColor="#fff6dc" result="s">
+          <feSpecularLighting in="b" surfaceScale="3" specularConstant="0.9" specularExponent="18" lightingColor="#fff0f2" result="s">
             <feDistantLight azimuth="225" elevation="45" />
           </feSpecularLighting>
           <feComposite in="s" in2="d" operator="in" result="sp" />
           <feComposite in="d" in2="sp" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0" />
         </filter>
 
-        {/* Champagne-gold foil */}
+        {/* Rose-gold foil (id kept as "gold" so every ornament shares it) */}
         <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#8a6a3a" />
-          <stop offset="0.28" stopColor="#e9d49f" />
-          <stop offset="0.5" stopColor="#b08d57" />
-          <stop offset="0.72" stopColor="#f4e6bd" />
-          <stop offset="1" stopColor="#8a6a3a" />
+          <stop offset="0" stopColor="#9a5a5c" />
+          <stop offset="0.28" stopColor="#f2c9c2" />
+          <stop offset="0.5" stopColor="#c4807d" />
+          <stop offset="0.72" stopColor="#f7dcd5" />
+          <stop offset="1" stopColor="#9a5a5c" />
         </linearGradient>
         <linearGradient id="goldV" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#f4e6bd" />
-          <stop offset="0.5" stopColor="#b08d57" />
-          <stop offset="1" stopColor="#7d5f32" />
+          <stop offset="0" stopColor="#f7dcd5" />
+          <stop offset="0.5" stopColor="#c4807d" />
+          <stop offset="1" stopColor="#8e4f53" />
         </linearGradient>
         <radialGradient id="seal" cx="40%" cy="35%" r="70%">
-          <stop offset="0" stopColor="#f3e2b0" />
-          <stop offset="0.45" stopColor="#c9a466" />
-          <stop offset="1" stopColor="#7a5a2c" />
+          <stop offset="0" stopColor="#f6c9cf" />
+          <stop offset="0.45" stopColor="#c9677c" />
+          <stop offset="1" stopColor="#7e2f43" />
+        </radialGradient>
+        {/* Lustrous pearl */}
+        <radialGradient id="pearl" cx="35%" cy="30%" r="75%">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.35" stopColor="#fdf3f2" />
+          <stop offset="0.75" stopColor="#ecd3d4" />
+          <stop offset="1" stopColor="#c9a6aa" />
         </radialGradient>
 
         {/* Blush & ivory rose petals */}
@@ -85,10 +92,10 @@ export default function Defs() {
           <stop offset="1" stopColor="#173025" />
         </linearGradient>
         <linearGradient id="satin" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fbf6ec" />
-          <stop offset="0.45" stopColor="#e6d6bb" />
-          <stop offset="0.6" stopColor="#fffaf0" />
-          <stop offset="1" stopColor="#cdb48a" />
+          <stop offset="0" stopColor="#fdf0ef" />
+          <stop offset="0.45" stopColor="#ecc4c4" />
+          <stop offset="0.6" stopColor="#fff6f5" />
+          <stop offset="1" stopColor="#c9898e" />
         </linearGradient>
       </defs>
     </svg>

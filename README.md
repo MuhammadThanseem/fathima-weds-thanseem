@@ -1,34 +1,24 @@
-# Amalfi-style Wedding Invitation (Next.js)
+# Engagement Invitation (ivory & gold) · Next.js
 
-A mobile-first digital wedding invitation:
+What guests see, in order:
+1. **Envelope**: ivory with pearl-edged satin sashes in an X, white roses, a satin bow and a gold wax seal with pearl tassels. Tap to open → the bow drops away, the envelope opens like two doors, and **Save The Date** glows in shimmering gold.
+2. **Bismillah** in gold calligraphy inside a baroque oval mirror on a white & gold console table, with flickering candles.
+3. **Surah Ar-Rum 30:21**: the Arabic and English text writes itself in, word by word.
+4. **Engagement Ceremony** in a rope-and-pearl arch with white roses: the groom's and bride's names and their parents.
+5. **In sha Allah**: date, time and venue with gold icons.
+6. Countdown, **View Location**, **Add to Calendar** (.ics file), optional **RSVP on WhatsApp**, and a closing line.
 
-1. **Painted envelope** with a satin ribbon & bow. Tap → bow unties, flap opens, card rises.
-2. **Hero card**: names, date with fluttering butterflies, venue, framed by an impasto sky and blossoms.
-3. **Countdown**: live days / hours / minutes / seconds inside a blue-gingham floral frame.
-4. **Our Story**: drifting painted clouds and a script signature.
-5. **The Celebration**: dark green section with a garden fountain, botanical line frame, and a "View on map" button.
-6. **The Day**: villa illustration, a week strip with a heart on the wedding day, and an alternating timeline with painted icons.
-7. **RSVP** form, background-music toggle, and an EN/ES language switch.
-
-All artwork is drawn in SVG (no image files needed).
+All artwork is SVG; fonts are bundled locally (Great Vibes, Cormorant Garamond, Amiri, Aref Ruqaa).
 
 ## Run
-
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev     # http://localhost:3000   (add ?open to skip the envelope)
 ```
 
-Add `?open` to the URL to skip the envelope while editing.
-
-## Customise
-
-Everything is in **`lib/config.ts`**: names, date/time, venue, map link, story text, program timeline, and both languages.
-
-- **Music**: put an mp3 at `public/music.mp3`. It starts when the envelope is opened. If there's no file, the button stays hidden.
-- **RSVP**: set `rsvpEndpoint` to a Formspree / Getform / Google Apps Script URL to collect replies. If it's empty, replies are logged by `/api/rsvp` and an email to `rsvpEmail` opens instead.
-- **Your own paintings**: replace any component in `components/art/Scenes.tsx` (e.g. `Villa`, `Fountain`, `Coast`) with an `<img src="/your-art.png" />`.
+## Edit
+Everything is in `lib/config.ts`: names, parents, date/time, venue, map link, WhatsApp number and initials on the seal.
+Music: add `public/music.mp3`. It starts when the envelope is opened.
 
 ## Deploy
-
-Push to GitHub and import it on [vercel.com](https://vercel.com). No extra settings are needed.
+Push to GitHub → import on vercel.com. No extra settings needed.

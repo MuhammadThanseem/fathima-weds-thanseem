@@ -18,7 +18,7 @@ export function Blossom({ x, y, s = 1, r = 0, white = false }: P & { white?: boo
       ))}
       <circle r="4.2" fill="url(#gold)" />
       {[0, 60, 120, 180, 240, 300].map((a) => (
-        <circle key={a} cx={Math.cos((a * Math.PI) / 180) * 6} cy={Math.sin((a * Math.PI) / 180) * 6} r="1.2" fill="#9c7a45" />
+        <circle key={a} cx={Math.cos((a * Math.PI) / 180) * 6} cy={Math.sin((a * Math.PI) / 180) * 6} r="1.2" fill="#9a5a5c" />
       ))}
     </g>
   );
@@ -56,7 +56,7 @@ export function Leaf({ x, y, s = 1, r = 0, gold = false }: P & { gold?: boolean 
   return (
     <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}>
       <path d="M0 0 C 10 -12, 10 -38, 0 -52 C -10 -38, -10 -12, 0 0Z" fill={gold ? "url(#gold)" : "url(#leaf)"} />
-      <path d="M0 -2 L0 -48" stroke={gold ? "#8a6a3a" : "#a7b99c"} strokeWidth="0.8" opacity="0.6" />
+      <path d="M0 -2 L0 -48" stroke={gold ? "#9a5a5c" : "#a7b99c"} strokeWidth="0.8" opacity="0.6" />
     </g>
   );
 }
@@ -89,17 +89,17 @@ export function Butterfly({ x, y, s = 1, r = 0, delay = 0 }: P & { delay?: numbe
   return (
     <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}>
       <g style={{ transformOrigin: "0px 0px", animation: `flutter 1.6s ease-in-out ${delay}s infinite` }}>
-        <path d="M0 0 C -14 -16, -24 -6, -16 4 C -22 12, -10 18, 0 4Z" fill="url(#gold)" stroke="#7d5f32" strokeWidth="0.7" />
-        <path d="M0 0 C 14 -16, 24 -6, 16 4 C 22 12, 10 18, 0 4Z" fill="url(#gold)" stroke="#7d5f32" strokeWidth="0.7" />
+        <path d="M0 0 C -14 -16, -24 -6, -16 4 C -22 12, -10 18, 0 4Z" fill="url(#gold)" stroke="#8e4f53" strokeWidth="0.7" />
+        <path d="M0 0 C 14 -16, 24 -6, 16 4 C 22 12, 10 18, 0 4Z" fill="url(#gold)" stroke="#8e4f53" strokeWidth="0.7" />
         <path d="M-3 -1 C -9 -8, -15 -8, -16 -2 M3 -1 C 9 -8, 15 -8, 16 -2" stroke="#fff7df" strokeWidth="0.6" fill="none" opacity="0.8" />
       </g>
-      <path d="M0 -6 L0 8" stroke="#5a4428" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M0 -6 L0 8" stroke="#6e3a40" strokeWidth="1.4" strokeLinecap="round" />
     </g>
   );
 }
 
 /** Four-point twinkle star. */
-export function Sparkle({ x, y, s = 1, delay = 0, color = "#f4e6bd" }: P & { delay?: number; color?: string }) {
+export function Sparkle({ x, y, s = 1, delay = 0, color = "#f7dcd5" }: P & { delay?: number; color?: string }) {
   return (
     <path
       transform={`translate(${x} ${y}) scale(${s})`}

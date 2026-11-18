@@ -37,6 +37,13 @@ export const config = {
 
   city: "Valakettu, Cherapuram",
   venue: "Pulakkunnath House",
+  // Photo at the bottom of the Location section. Put any image in /public and set its path here
+  // (e.g. a photo of the house). "" shows the illustrated scene instead.
+  // Default: Jumeirah Al Qasr, Dubai, by Aidas U. — CC BY 3.0, so the credit below must stay visible
+  // while this photo is used (https://commons.wikimedia.org/wiki/File:Jumeirah_Al_Qasr_-_panoramio_(6).jpg).
+  // Using your own photo? Set locationImageCredit to "" to hide the credit.
+  locationImage: "/location.jpg",
+  locationImageCredit: "Photo: Aidas U. · CC BY 3.0",
   mapUrl: "https://www.google.com/maps/dir/?api=1&destination=11.634858,75.7211581",
 
   // RSVP via WhatsApp: country code + number, digits only (e.g. "919876543210"). "" hides it.

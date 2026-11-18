@@ -344,9 +344,21 @@ export function Location() {
         <div className="script shimmer on-gold" style={{ fontSize: "2.2rem", color: "var(--gold-dark)", display: "inline-block" }}>{config.brideShort} &amp; {config.groomShort}</div>
         <div className="caps" style={{ fontSize: ".55rem", letterSpacing: ".3em", color: "var(--ink-soft)", marginTop: 4 }}>Your duas are our greatest gift</div>
       </motion.div>
-      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }} style={{ position: "relative", height: 280 }}>
-        <PalaceScene />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--white) 0%, transparent 30%)" }} />
+      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }} style={{ position: "relative", height: config.locationImage ? 420 : 280, overflow: "hidden" }}>
+        {config.locationImage ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={config.locationImage} alt={`${config.venue}, ${config.city}`} loading="lazy" className="hero-zoom" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 70%", filter: "saturate(.95) sepia(.16) brightness(1.03)" }} />
+            {/* soft warm wash so the photo sits in the ivory & gold palette */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,246,230,0) 40%, rgba(214,189,132,.18) 100%)", mixBlendMode: "multiply" }} />
+          </>
+        ) : (
+          <PalaceScene />
+        )}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--white) 0%, rgba(255,255,255,0) 28%)" }} />
+        {config.locationImage && config.locationImageCredit && (
+          <div style={{ position: "absolute", left: 8, bottom: 6, fontSize: "0.55rem", letterSpacing: ".04em", color: "rgba(255,255,255,.75)", textShadow: "0 1px 2px rgba(0,0,0,.45)" }}>{config.locationImageCredit}</div>
+        )}
       </motion.div>
     </section>
   );

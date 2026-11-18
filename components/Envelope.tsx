@@ -155,91 +155,42 @@ function TopFlapFace() {
   );
 }
 
-/* ───────── the gold moment ───────── */
-function GoldBurst() {
+/* ───────── a light gold touch when the seal is tapped ───────── */
+function GoldTouch() {
   const r = rand(77);
-  const dust = Array.from({ length: 80 }, () => ({
-    x: r() * 100, y: r() * 100, size: 2 + r() * 5, delay: r() * 0.35, dur: 1.4 + r() * 1.2, star: r() > 0.7, fall: 4 + r() * 10,
+  const sparks = Array.from({ length: 18 }, () => ({
+    x: 20 + r() * 60, y: TIP * 100 - 22 + r() * 44, size: 5 + r() * 6, delay: 0.1 + r() * 0.5, dur: 1.4 + r() * 0.8,
   }));
   return (
     <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 8 }}>
-      {/* glow behind the seal */}
+      {/* soft glow behind the seal */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.2 }}
-        animate={{ opacity: [0, 1, 0.5], scale: [0.2, 1.6, 3] }}
+        initial={{ opacity: 0, scale: 0.4 }}
+        animate={{ opacity: [0, 0.9, 0], scale: [0.4, 1.4, 2] }}
         transition={{ duration: 1.6, ease: "easeOut" }}
-        style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "60%", aspectRatio: "1", translate: "-50% -50%", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,240,200,.95) 0%, rgba(230,200,130,.55) 35%, rgba(214,189,132,0) 70%)", mixBlendMode: "multiply" }}
+        style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "56%", aspectRatio: "1", translate: "-50% -50%", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,240,205,.9) 0%, rgba(230,205,145,.4) 40%, rgba(214,189,132,0) 70%)", mixBlendMode: "multiply" }}
       />
-      {/* gold ripples */}
-      {[0, 0.22, 0.44].map((d) => (
-        <motion.div
-          key={d}
-          initial={{ opacity: 0, scale: 0.3 }}
-          animate={{ opacity: [0, 0.9, 0], scale: [0.3, 5.5] }}
-          transition={{ duration: 1.6, delay: d, ease: "easeOut" }}
-          style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "34%", aspectRatio: "1", translate: "-50% -50%", borderRadius: "50%", border: "1.5px solid #cfae6a", boxShadow: "0 0 12px rgba(214,189,132,.6), inset 0 0 12px rgba(214,189,132,.4)" }}
-        />
-      ))}
-      {/* gold sheen sweeping the whole envelope */}
+      {/* one gold ripple */}
       <motion.div
-        initial={{ backgroundPosition: "130% 0" }}
-        animate={{ backgroundPosition: "-30% 0" }}
-        transition={{ duration: 1.3, delay: 0.15, ease: "easeInOut" }}
-        style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(115deg, transparent 38%, rgba(222,190,120,.55) 47%, rgba(255,244,214,.9) 50%, rgba(222,190,120,.55) 53%, transparent 62%)", backgroundSize: "250% 100%", backgroundRepeat: "no-repeat", mixBlendMode: "multiply" }}
+        initial={{ opacity: 0, scale: 0.4 }}
+        animate={{ opacity: [0, 0.7, 0], scale: [0.4, 3.2] }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+        style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "30%", aspectRatio: "1", translate: "-50% -50%", borderRadius: "50%", border: "1px solid #cfae6a" }}
       />
-      {/* glitter flung from the seal to every corner */}
-      {dust.map((p, i) => (
-        <motion.div
+      {/* a few sparkles drifting up and fading */}
+      {sparks.map((p, i) => (
+        <motion.svg
           key={i}
-          initial={{ left: "50%", top: `${TIP * 100}%`, opacity: 0, scale: 0 }}
-          animate={{ left: `${p.x}%`, top: [`${TIP * 100}%`, `${p.y}%`, `${p.y + p.fall}%`], opacity: [0, 1, 1, 0], scale: [0, 1.2, 1, 0.6] }}
-          transition={{ duration: p.dur + 1.2, delay: p.delay, ease: [0.16, 1, 0.3, 1], times: [0, 0.35, 0.75, 1] }}
-          style={{ position: "absolute", width: p.star ? p.size * 2.4 : p.size, height: p.star ? p.size * 2.4 : p.size, translate: "-50% -50%" }}
+          viewBox="-10 -10 20 20"
+          initial={{ opacity: 0, scale: 0.3, y: 0 }}
+          animate={{ opacity: [0, 1, 0], scale: [0.3, 1, 0.6], y: -24 }}
+          transition={{ duration: p.dur, delay: p.delay, ease: "easeOut" }}
+          style={{ position: "absolute", left: `${f(p.x)}%`, top: `${f(p.y)}%`, width: f(p.size), height: f(p.size) }}
         >
-          {p.star ? (
-            <svg viewBox="-10 -10 20 20" width="100%" height="100%"><path d="M0 -10 L2 -2 L10 0 L2 2 L0 10 L-2 2 L-10 0 L-2 -2Z" fill="url(#gold)" /></svg>
-          ) : (
-            <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "radial-gradient(circle at 35% 35%, #fff6d8, #d6b46e 60%, #9c7a3c)", boxShadow: "0 0 6px rgba(230,200,130,.9)" }} />
-          )}
-        </motion.div>
+          <path d="M0 -10 L2 -2 L10 0 L2 2 L0 10 L-2 2 L-10 0 L-2 -2Z" fill="url(#gold)" />
+        </motion.svg>
       ))}
     </div>
-  );
-}
-
-/** Gold lines tracing every crease of the envelope. */
-function GoldCreases({ show }: { show: boolean }) {
-  const lines = [
-    `M0 0 L ${W / 2} ${TY} L ${W} 0`,
-    `M0 ${H} L ${W / 2} ${BY} L ${W} ${H}`,
-    `M6 6 H${W - 6} V${H - 6} H6 Z`,
-  ];
-  return (
-    <motion.svg
-      viewBox={`0 0 ${W} ${H}`}
-      width="100%"
-      height="100%"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: show ? 1 : 0 }}
-      transition={{ duration: 0.4 }}
-      style={{ position: "absolute", inset: 0, zIndex: 7, pointerEvents: "none" }}
-    >
-      {lines.map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          fill="none"
-          stroke="url(#gold)"
-          strokeWidth={i === 2 ? 1.2 : 1.8}
-          pathLength={1}
-          strokeDasharray="1 1"
-          initial={{ strokeDashoffset: 1 }}
-          animate={{ strokeDashoffset: 0 }}
-          transition={{ duration: 1.1, delay: 0.1 + i * 0.12, ease: "easeInOut" }}
-          style={{ filter: "drop-shadow(0 0 3px rgba(230,200,130,.9))" }}
-        />
-      ))}
-    </motion.svg>
   );
 }
 
@@ -264,18 +215,18 @@ function Card() {
 }
 
 export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDone: () => void }) {
-  // 0 sealed · 1 gold burst · 2 flap opens · 4 card grows in place to fill the screen · 5 gone
-  // (no zoom-out / card-rise step, so nothing jumps around)
+  // Minimal, calm opening:
+  // 0 sealed · 1 seal fades with a light gold touch · 2 flap opens · 4 card grows in place · 5 fade out
   const [stage, setStage] = useState(0);
 
   const open = () => {
     if (stage) return;
     onOpen();
     setStage(1);
-    setTimeout(() => setStage(2), 1500);
-    setTimeout(() => setStage(4), 2800);
-    setTimeout(() => setStage(5), 4000);
-    setTimeout(onDone, 4600);
+    setTimeout(() => setStage(2), 700);
+    setTimeout(() => setStage(4), 1800);
+    setTimeout(() => setStage(5), 2900);
+    setTimeout(onDone, 3450);
   };
 
   return (
@@ -304,7 +255,7 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                     ? { left: "0%", top: "0%", width: "100%", height: "100%", borderRadius: 0 }
                     : { left: "8%", top: "26%", width: "84%", height: "62%", borderRadius: 6 }
                 }
-                transition={{ duration: 1.1, ease: EASE }}
+                transition={{ duration: 1.0, ease: EASE }}
                 style={{ position: "absolute", zIndex: stage >= 4 ? 9 : 2, containerType: "inline-size" }}
               >
                 <Card />
@@ -319,7 +270,7 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
               <motion.div
                 initial={false}
                 animate={{ rotateX: stage >= 2 ? 180 : 0, opacity: stage >= 4 ? 0 : 1 }}
-                transition={{ duration: 1.2, ease: EASE }}
+                transition={{ duration: 1.0, ease: EASE }}
                 style={{ position: "absolute", left: 0, right: 0, top: 0, height: `${TIP * 100}%`, transformOrigin: "top center", transformStyle: "preserve-3d", zIndex: stage >= 2 ? 1 : 4 }}
               >
                 <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", filter: "drop-shadow(0 3px 4px rgba(110,100,90,.28))" }}><TopFlapFace /></div>
@@ -332,17 +283,16 @@ export default function Envelope({ onOpen, onDone }: { onOpen: () => void; onDon
                 aria-label="Open the invitation"
                 onClick={(e) => { e.stopPropagation(); open(); }}
                 animate={
-                  stage >= 2 ? { opacity: 0 } : { opacity: 1 }
+                  stage >= 1 ? { opacity: 0 } : { opacity: 1 }
                 }
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className={stage === 0 ? "seal-idle" : undefined}
                 style={{ position: "absolute", left: "50%", top: `${TIP * 100}%`, width: "30%", aspectRatio: "1", marginLeft: "-15%", marginTop: "-15%", zIndex: 6, background: "none", border: 0, padding: 0, cursor: "pointer", borderRadius: "50%" }}
               >
                 <Seal />
               </motion.button>
 
-              {stage >= 1 && stage < 4 && <GoldCreases show={stage < 2} />}
-              {stage >= 1 && stage < 4 && <GoldBurst />}
+              {stage >= 1 && stage < 4 && <GoldTouch />}
 
               {stage === 0 && (
                 <div style={{ position: "absolute", left: 0, right: 0, top: `calc(${TIP * 100}% + 19cqw)`, textAlign: "center", zIndex: 6, animation: "glow 2s ease-in-out infinite", pointerEvents: "none" }}>

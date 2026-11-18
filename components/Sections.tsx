@@ -1,235 +1,241 @@
 "use client";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Arch, Bouquet, Console, Icon, Mirror, Sparkles } from "./Art";
+import { archD, cuspedD, FloralCorner, Flourish, Lantern, MosqueScene, PalaceScene, RoseCluster, Sparkles, TimelineArt } from "./Art";
+import ScratchCard from "./Scratch";
+import { Burst } from "./Effects";
 import { config } from "@/lib/config";
 
-/* ───────── Word-by-word "writing" reveal (keeps Arabic letters joined) ───────── */
-export function Write({
-  text,
-  delay = 0,
-  step = 0.07,
-  style,
-  className,
-  as = "p",
-}: {
-  text: string;
-  delay?: number;
-  step?: number;
-  style?: React.CSSProperties;
-  className?: string;
-  as?: "p" | "div" | "h2";
-}) {
-  const Tag = motion[as];
-  const words = text.split(" ");
-  return (
-    <Tag
-      className={className}
-      style={style as import("framer-motion").MotionStyle}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.4 }}
-      variants={{ show: { transition: { staggerChildren: step, delayChildren: delay } } }}
-    >
-      {words.map((w, i) => (
-        <motion.span
-          key={i}
-          style={{ display: "inline-block", whiteSpace: "pre" }}
-          variants={{ hidden: { opacity: 0, y: 6, filter: "blur(4px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5 } } }}
-        >
-          {w}
-          {i < words.length - 1 ? " " : ""}
-        </motion.span>
-      ))}
-    </Tag>
-  );
-}
+const fade = (delay = 0, y = 22) => ({
+  initial: { opacity: 0, y },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.3 },
+  transition: { duration: 1, delay, ease: [0.22, 1, 0.36, 1] as const },
+});
 
-/* ───────── Soft floral bokeh backdrop with draped curtains ───────── */
-const bokeh: React.CSSProperties = {
-  position: "absolute",
-  inset: 0,
-  background: `
-    radial-gradient(circle at 12% 10%, rgba(255,255,255,.95) 0 6%, transparent 13%),
-    radial-gradient(circle at 30% 4%, rgba(255,255,255,.85) 0 5%, transparent 11%),
-    radial-gradient(circle at 70% 8%, rgba(255,255,255,.9) 0 7%, transparent 14%),
-    radial-gradient(circle at 92% 18%, rgba(255,255,255,.85) 0 6%, transparent 13%),
-    radial-gradient(circle at 5% 40%, rgba(255,255,255,.7) 0 5%, transparent 12%),
-    radial-gradient(circle at 96% 46%, rgba(255,255,255,.7) 0 5%, transparent 12%),
-    radial-gradient(circle at 15% 92%, rgba(255,255,255,.9) 0 8%, transparent 16%),
-    radial-gradient(circle at 55% 98%, rgba(255,255,255,.95) 0 9%, transparent 18%),
-    radial-gradient(circle at 90% 94%, rgba(255,255,255,.9) 0 8%, transparent 16%),
-    repeating-linear-gradient(90deg, rgba(214,150,165,.0) 0 26px, rgba(214,150,165,.22) 34px, rgba(214,150,165,0) 46px),
-    linear-gradient(180deg, #e7bcc4 0%, #f3d6db 40%, #ebc7ce 100%)`,
-  filter: "blur(2px)",
-};
-
-function MirrorScreen({ children }: { children: React.ReactNode }) {
+/* ═════════ 1. WELCOME — arch window onto the mosque ═════════ */
+export function Welcome() {
   return (
-    <section className="screen">
-      <div style={bokeh} />
-      <svg viewBox="0 0 400 300" width="100%" style={{ position: "absolute", top: -20, left: 0, filter: "blur(3px)", opacity: 0.9 }}>
-        <Bouquet x={-20} y={10} s={1.2} seed={31} />
-        <Bouquet x={420} y={0} s={1.3} flip seed={37} />
-        <Bouquet x={150} y={-30} s={0.9} seed={41} />
+    <section className="screen" style={{ background: "linear-gradient(180deg,#f3eee7,#e9e1d6)" }}>
+      <svg viewBox="0 0 400 760" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0 }}>
+        <defs>
+          <clipPath id="heroWin"><path d={`${cuspedD(62, 70, 276, 690, 0.36, 8)} Z`} /></clipPath>
+        </defs>
+        {/* carved stone frame */}
+        <path d={`${archD(24, 30, 352, 740, 0.36)} Z`} fill="url(#stone)" />
+        <path d={`${archD(24, 30, 352, 740, 0.36)} Z`} fill="url(#jali)" opacity="0.45" />
+        <path d={archD(40, 48, 320, 720, 0.36)} fill="none" stroke="#c4b195" strokeWidth="1.5" />
+        <path d={archD(52, 60, 296, 710, 0.36)} fill="none" stroke="#fffaf2" strokeWidth="2" />
+        {/* scene */}
+        <g clipPath="url(#heroWin)">
+          <g className="hero-zoom">
+          {config.heroImage ? (
+            <image href={config.heroImage} x="62" y="70" width="276" height="690" preserveAspectRatio="xMidYMid slice" />
+          ) : (
+            <svg x="40" y="70" width="320" height="690" viewBox="0 0 300 520" preserveAspectRatio="xMidYMid slice"><MosqueScene /></svg>
+          )}
+          </g>
+          <rect x="62" y="70" width="276" height="300" fill="url(#sky)" opacity="0.25" />
+        </g>
+        <path d={cuspedD(62, 70, 276, 690, 0.36, 8)} fill="none" stroke="#b9a685" strokeWidth="2" />
+        <path d={cuspedD(56, 64, 288, 696, 0.36, 8)} fill="none" stroke="#fffaf2" strokeWidth="1.5" opacity="0.8" />
+        {/* columns */}
+        {[44, 344].map((x) => (
+          <g key={x}>
+            <rect x={x} y="330" width="12" height="430" fill="#e8dece" stroke="#c9b79c" strokeWidth="0.8" />
+            <rect x={x - 3} y="324" width="18" height="8" fill="#d9c9ae" />
+          </g>
+        ))}
       </svg>
-      <Sparkles count={12} seed={children ? 3 : 5} />
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "calc(min(100vw, 480px) * 0.575)" }}>
-        <Console />
+
+      {/* lush rose clusters in every corner */}
+      <div style={{ position: "absolute", top: -18, left: -26, width: 215, height: 160, zIndex: 3 }}>
+        <svg viewBox="0 0 215 160" width="100%" height="100%" overflow="visible" className="floral-sway"><RoseCluster seed={4} /></svg>
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: "calc(min(100vw, 480px) * 0.315)", display: "flex", justifyContent: "center" }}>
-      <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.96 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: "relative", width: "74%", maxHeight: "68svh", aspectRatio: "320 / 514" }}
-      >
-        <div style={{ position: "absolute", inset: 0 }}>
-          <Mirror />
+      <div style={{ position: "absolute", top: -18, right: -26, width: 215, height: 160, zIndex: 3 }}>
+        <svg viewBox="0 0 215 160" width="100%" height="100%" overflow="visible" className="floral-sway" style={{ animationDelay: "-3s" }}><g transform="translate(215 0) scale(-1 1)"><RoseCluster seed={9} /></g></svg>
+      </div>
+      <div style={{ position: "absolute", bottom: -22, left: -30, width: 230, height: 170, zIndex: 3 }}>
+        <svg viewBox="0 0 230 170" width="100%" height="100%" overflow="visible" className="floral-sway" style={{ animationDelay: "-1.5s" }}><g transform="translate(0 170) scale(1 -1)"><RoseCluster seed={14} /></g></svg>
+      </div>
+      <div style={{ position: "absolute", bottom: -22, right: -30, width: 230, height: 170, zIndex: 3 }}>
+        <svg viewBox="0 0 230 170" width="100%" height="100%" overflow="visible" className="floral-sway" style={{ animationDelay: "-4.5s" }}><g transform="translate(230 170) scale(-1 -1)"><RoseCluster seed={17} /></g></svg>
+      </div>
+
+      {/* lanterns hanging inside the arch */}
+      {[
+        { side: "left", x: "11%", chain: 150, size: 30, delay: 0 },
+        { side: "left", x: "19%", chain: 205, size: 21, delay: 1.1 },
+        { side: "right", x: "11%", chain: 150, size: 30, delay: 0.6 },
+        { side: "right", x: "19%", chain: 205, size: 21, delay: 1.6 },
+      ].map((l, i) => (
+        <div key={i} style={{ position: "absolute", top: 0, [l.side]: l.x, zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", transformOrigin: "50% 0", animation: `sway 5s ease-in-out ${l.delay}s infinite`, marginLeft: l.side === "left" ? -l.size / 2 : 0, marginRight: l.side === "right" ? -l.size / 2 : 0 }}>
+          <div style={{ width: 1, height: l.chain, background: "linear-gradient(180deg, transparent, #b8975a 30%, #8c6d36)" }} />
+          <Lantern size={l.size} delay={l.delay} />
         </div>
-        <div style={{ position: "absolute", left: "14%", right: "14%", top: "20%", bottom: "16%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-          {children}
-        </div>
+      ))}
+
+      <Sparkles count={12} seed={2} />
+
+      <div style={{ position: "absolute", left: "16%", right: "16%", top: "17%", textAlign: "center", zIndex: 4, textShadow: "0 0 14px rgba(255,250,244,.95), 0 0 4px rgba(255,250,244,.9)" }}>
+        <motion.div {...fade(0.3)} style={{ fontSize: "1.05rem", color: "#6c6260", letterSpacing: ".02em" }}>Welcome to the</motion.div>
+        <motion.div {...fade(0.5)} className="script" style={{ fontSize: "2.05rem", color: "#5f5452", lineHeight: 1.1 }}>{config.ceremony}</motion.div>
+        <motion.div {...fade(0.7)} style={{ fontSize: "1.05rem", color: "#6c6260", marginTop: 2 }}>of</motion.div>
+        <motion.div {...fade(0.9)} className="script shimmer" style={{ fontSize: "2.35rem", lineHeight: 1.05, color: "#5f5452", marginTop: 4, textWrap: "balance" }}>{config.bride}</motion.div>
+        <motion.div {...fade(1.1)} className="script" style={{ fontSize: "1.5rem", color: "#5f5452", lineHeight: 1 }}>&amp;</motion.div>
+        <motion.div {...fade(1.3)} className="script shimmer" style={{ fontSize: "2.35rem", lineHeight: 1.05, color: "#5f5452", animationDelay: "2s", textWrap: "balance" }}>{config.groom}</motion.div>
+      </div>
+
+      {/* scroll hint */}
+      <motion.div {...fade(1.8, 10)} style={{ position: "absolute", left: 0, right: 0, bottom: "3.5%", textAlign: "center", zIndex: 4, color: "#5f5452", textShadow: "0 0 10px rgba(255,250,244,.95)" }}>
+        <div className="script" style={{ fontSize: "1.45rem" }}>Scroll down</div>
+        <div style={{ animation: "bob 2s ease-in-out infinite", fontSize: "1.2rem", lineHeight: 0.6 }}>⌄</div>
       </motion.div>
-      </div>
     </section>
   );
 }
 
-export function Bismillah() {
+/* ═════════ 2. THE DATE — scratch to reveal ═════════ */
+export function TheDate() {
+  const d = new Date(config.dateISO);
+  const values = [String(d.getDate()).padStart(2, "0"), d.toLocaleString("en", { month: "short" }).toUpperCase(), String(d.getFullYear())];
+  const [count, setCount] = useState(0);
+  const all = count >= 3;
   return (
-    <MirrorScreen>
+    <section style={{ position: "relative", padding: "30px 0 60px", background: "var(--white)" }}>
+      <div style={{ position: "absolute", top: 0, left: -10, width: 170, height: 110 }}>
+        <svg className="floral-sway" style={{ animationDelay: "-6.5s" }} viewBox="0 0 170 100" width="100%" height="100%" overflow="visible"><FloralCorner seed={21} /></svg>
+      </div>
+      <div style={{ position: "absolute", top: 0, right: -10, width: 170, height: 110 }}>
+        <svg className="floral-sway" style={{ animationDelay: "-0.8s" }} viewBox="0 0 170 100" width="100%" height="100%" overflow="visible"><g transform="translate(170 0)"><FloralCorner flip seed={23} /></g></svg>
+      </div>
+      <motion.div {...fade()} className="center" style={{ marginTop: 60 }}>
+        <div className="script" style={{ fontSize: "2.6rem" }}>The Date</div>
+        <div style={{ fontSize: "1.05rem", color: "var(--ink-soft)", marginTop: 6 }}>✦ Scratch to reveal the date ✦</div>
+      </motion.div>
+      <motion.div {...fade(0.2)} style={{ position: "relative", display: "flex", justifyContent: "center", gap: 14, marginTop: 30 }}>
+        {all && <Burst />}
+        {values.map((v, i) => (
+          <ScratchCard key={i} w={104} h={104} value={v} label={["Day", "Month", "Year"][i]} onReveal={() => setCount((c) => c + 1)} />
+        ))}
+      </motion.div>
       <motion.div
-        initial={{ clipPath: "inset(0 0 0 100%)" }}
-        whileInView={{ clipPath: "inset(0 0 0 0%)" }}
-        viewport={{ once: true }}
-        transition={{ duration: 2.4, delay: 0.6, ease: "easeInOut" }}
-        className="gold-text"
-        style={{ fontFamily: "var(--ruqaa)", fontSize: "2.7rem", lineHeight: 1.55, direction: "rtl", fontWeight: 700 }}
+        animate={{ opacity: all ? 1 : 0, y: all ? 0 : 10 }}
+        transition={{ duration: 0.8 }}
+        className="center"
+        style={{ marginTop: 22, fontStyle: "italic", fontSize: "1.15rem", color: "var(--gold-dark)" }}
       >
-        {(() => {
-          const w = config.bismillah.split(" ");
-          return (
-            <>
-              <div>{w.slice(0, 2).join(" ")}</div>
-              <div>{w.slice(2).join(" ")}</div>
-            </>
-          );
-        })()}
+        {d.toLocaleDateString("en", { weekday: "long" })} · {config.timeText} ♡
       </motion.div>
-      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 2.6, duration: 1 }} style={{ marginTop: 10 }}>
-        <svg width="90" height="20" viewBox="0 0 90 20"><path d="M2 10 C 20 0, 30 20, 45 10 C 60 0, 70 20, 88 10" stroke="url(#gold)" fill="none" strokeWidth="1.4" /><circle cx="45" cy="10" r="3" fill="url(#gold)" /></svg>
-      </motion.div>
-    </MirrorScreen>
+    </section>
   );
 }
 
+/* ═════════ 3. EMBOSSED INVITATION CARD ═════════ */
+export function InviteCard() {
+  const W = 360, H = 640;
+  return (
+    <section style={{ position: "relative", padding: "10px 0 30px", background: "var(--white)" }}>
+      <motion.div {...fade(0, 30)} style={{ position: "relative", width: "92%", margin: "0 auto", aspectRatio: `${W} / ${H}` }}>
+        <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+          <path d={`${archD(8, 8, W - 16, H - 8, 0.3)} Z`} fill="#f7f4ef" filter="url(#emboss)" />
+          <path d={cuspedD(22, 24, W - 44, H - 24, 0.3, 8)} fill="none" stroke="#ece6dd" strokeWidth="6" filter="url(#deboss)" />
+          <path d={cuspedD(40, 46, W - 80, H - 46, 0.3, 8)} fill="none" stroke="#f0ebe3" strokeWidth="3" filter="url(#emboss)" />
+          {/* jali side panels */}
+          {[26, W - 38].map((x) => (
+            <rect key={x} x={x} y={H * 0.36} width="12" height={H * 0.6} fill="url(#jali)" opacity="0.6" />
+          ))}
+          {/* finial */}
+          <circle cx={W / 2} cy="2" r="4" fill="#f7f4ef" filter="url(#emboss)" />
+        </svg>
+        <div style={{ position: "absolute", left: "15%", right: "15%", top: "17%", bottom: "6%", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly" }}>
+          <motion.div {...fade(0.2)} className="arabic" style={{ fontSize: "1.25rem", color: "var(--gold-dark)" }}>بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</motion.div>
+          <motion.div {...fade(0.35)} className="caps" style={{ fontSize: ".66rem", lineHeight: 1.6 }}>
+            You are invited to the<br />{config.ceremony} of
+          </motion.div>
+          <motion.div {...fade(0.5)} className="script shimmer" style={{ fontSize: "2.5rem", lineHeight: 1.05 }}>{config.bride}</motion.div>
+          <Flourish width={110} />
+          <motion.div {...fade(0.6)} className="caps" style={{ fontSize: ".6rem", lineHeight: 1.7 }}>
+            Daughter of<br />{config.brideParents}
+          </motion.div>
+          <motion.div {...fade(0.7)} className="script" style={{ fontSize: "1.9rem" }}>With</motion.div>
+          <motion.div {...fade(0.8)} className="script shimmer" style={{ fontSize: "2.4rem", lineHeight: 1.05, animationDelay: "2s" }}>{config.groom}</motion.div>
+          <Flourish width={110} />
+          <motion.div {...fade(0.9)} className="caps" style={{ fontSize: ".6rem", lineHeight: 1.7 }}>
+            Son of<br />{config.groomParents}
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+/* ═════════ 4. NOTE + VERSE ═════════ */
 export function Verse() {
   return (
-    <MirrorScreen>
-      <svg width="110" height="16" viewBox="0 0 110 16" style={{ marginBottom: 8 }}>
-        <path d="M2 8 H40 M70 8 H108" stroke="url(#gold)" strokeWidth="1" />
-        <path d="M55 2 L61 8 L55 14 L49 8Z" fill="url(#gold)" />
-      </svg>
-      <Write text={config.verseArabic} className="arabic" step={0.08} style={{ fontSize: "0.95rem", lineHeight: 1.9, color: "var(--ink)" }} />
-      <Write text={config.verseEnglish} delay={1.6} step={0.06} style={{ fontSize: "0.92rem", lineHeight: 1.4, marginTop: 10, fontWeight: 600, color: "var(--ink-soft)" }} />
-      <Write text={config.verseRef} delay={3.4} style={{ fontSize: "0.85rem", marginTop: 10, fontWeight: 700, color: "var(--gold-dark)" }} />
-    </MirrorScreen>
+    <section style={{ position: "relative", padding: "40px 36px 50px", background: "var(--white)", textAlign: "center" }}>
+      <div style={{ position: "absolute", top: 10, left: -20, width: 140, height: 90, opacity: 0.9 }}>
+        <svg className="floral-sway" style={{ animationDelay: "-2.1s" }} viewBox="0 0 170 100" width="100%" height="100%" overflow="visible"><FloralCorner seed={31} /></svg>
+      </div>
+      <div style={{ position: "absolute", top: 10, right: -20, width: 140, height: 90, opacity: 0.9 }}>
+        <svg className="floral-sway" style={{ animationDelay: "-3.4s" }} viewBox="0 0 170 100" width="100%" height="100%" overflow="visible"><g transform="translate(170 0)"><FloralCorner flip seed={33} /></g></svg>
+      </div>
+      <motion.p {...fade()} style={{ fontStyle: "italic", fontSize: "1.12rem", lineHeight: 1.55, color: "var(--ink-soft)", marginTop: 70 }}>{config.welcomeNote}</motion.p>
+      <motion.div {...fade(0.1)} style={{ margin: "34px 0 10px" }}><Flourish /></motion.div>
+      <motion.div {...fade(0.2)} className="arabic" style={{ fontSize: "2rem", color: "var(--ink)" }}>{config.verseArabic}</motion.div>
+      <motion.div {...fade(0.35)} style={{ fontSize: "1.2rem", marginTop: 8 }}>{config.verseEnglish}</motion.div>
+      <motion.div {...fade(0.45)} style={{ fontSize: "1rem", color: "var(--ink-soft)" }}>{config.verseRef}</motion.div>
+    </section>
   );
 }
 
-/* ───────── Pearl arch screens ───────── */
-function ArchScreen({ children, seed = 1 }: { children: React.ReactNode; seed?: number }) {
+/* ═════════ 5. WEDDING TIMELINE ═════════ */
+export function Timeline() {
   return (
-    <section className="screen" style={{ background: "#f7e4e6" }}>
-      <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-        <rect width="100%" height="100%" fill="url(#lace)" />
-      </svg>
-      <motion.div
-        initial={{ opacity: 0, scale: 1.04 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 1.2 }}
-        style={{ position: "absolute", inset: "2% 0 0" }}
-      >
-        <Arch />
+    <section style={{ position: "relative", padding: "30px 18px 60px", background: "var(--white)" }}>
+      <motion.div {...fade()} className="center">
+        <div className="script" style={{ fontSize: "2.5rem" }}>Wedding Timeline</div>
+        <Flourish width={200} />
       </motion.div>
-      <Sparkles count={10} seed={seed} />
-      <div style={{ position: "absolute", left: "17%", right: "17%", top: "11%", bottom: "17%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", zIndex: 2 }}>
-        {children}
+      <div style={{ position: "relative", marginTop: 26 }}>
+        <motion.div
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 2.2, ease: "easeInOut" }}
+          style={{ position: "absolute", left: "50%", top: 0, bottom: 0, width: 1, background: "linear-gradient(180deg, transparent, var(--gold-soft) 6%, var(--gold-soft) 94%, transparent)", transformOrigin: "top" }}
+        />
+        <svg width="14" height="22" viewBox="0 0 14 22" style={{ position: "absolute", left: "calc(50% - 7px)", top: -14 }}>
+          <path d="M7 0 L12 8 L7 16 L2 8Z" fill="url(#gold)" /><path d="M7 16 V22" stroke="url(#gold)" />
+        </svg>
+        {config.timeline.map((item, i) => {
+          const artLeft = i % 2 === 0;
+          const text = (
+            <div style={{ textAlign: artLeft ? "left" : "right" }}>
+              <div className="script" style={{ fontSize: "1.7rem", color: "var(--gold-dark)" }}>{item.time}</div>
+              <div style={{ fontSize: "1.1rem", lineHeight: 1.25, color: "var(--ink)" }}>{item.title}</div>
+            </div>
+          );
+          const art = <TimelineArt name={item.art} />;
+          return (
+            <motion.div key={i} {...fade(0.05, 30)} className="draw-wrap" onViewportEnter={(e) => (e?.target as HTMLElement | undefined)?.classList.add("on")} style={{ display: "grid", gridTemplateColumns: "1fr 28px 1fr", alignItems: "center", minHeight: 150 }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: 8 }}>{artLeft ? art : text}</div>
+              <div style={{ display: "grid", placeItems: "center" }}>
+                <svg width="18" height="18" viewBox="-9 -9 18 18">
+                  {[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx="0" cy="-4" rx="2.4" ry="4.2" transform={`rotate(${a})`} fill="#fbf6ea" stroke="url(#gold)" strokeWidth=".8" />)}
+                  <circle r="2" fill="url(#gold)" />
+                </svg>
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-start", paddingLeft: 8 }}>{artLeft ? text : art}</div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
 }
 
-const nameStyle: React.CSSProperties = { fontSize: "2.1rem", lineHeight: 1.1, color: "var(--gold-dark)", marginTop: 4 };
-const parentStyle: React.CSSProperties = { fontSize: "1.02rem", fontWeight: 600, lineHeight: 1.3, color: "var(--ink)", marginTop: 4 };
-
-export function Details() {
-  return (
-    <ArchScreen seed={6}>
-      <Write as="h2" text={config.title} className="script" step={0.15} style={{ fontSize: "2.3rem", color: "var(--ink)", marginTop: 6 }} />
-      <Write text={config.blessing} delay={0.5} step={0.05} style={{ fontSize: "0.98rem", fontWeight: 600, lineHeight: 1.35, marginTop: 10, color: "var(--ink-soft)" }} />
-      <Write text={config.inviteLine} delay={1.2} step={0.06} style={{ fontSize: "1.05rem", fontWeight: 600, lineHeight: 1.35, marginTop: 10 }} />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 6, width: "100%" }}>
-        <Write text={config.bride} className="script" delay={1.9} step={0.15} style={nameStyle} />
-        {config.brideParents && <Write text={config.brideParents} delay={2.3} step={0.05} style={parentStyle} />}
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 2.6, duration: 0.8 }} style={{ margin: "8px auto", display: "grid", justifyItems: "center", gap: 2 }}>
-          <div className="script" style={{ fontSize: "1.7rem", lineHeight: 1, color: "var(--ink-soft)" }}>{config.and}</div>
-          <Icon name="rings" size={26} />
-        </motion.div>
-        <Write text={config.groom} className="script" delay={3.1} step={0.15} style={nameStyle} />
-        {config.groomParents && <Write text={config.groomParents} delay={3.5} step={0.05} style={parentStyle} />}
-      </div>
-    </ArchScreen>
-  );
-}
-
-export function WhenWhere() {
-  const row = (icon: "calendar" | "clock" | "pin", delay: number, children: React.ReactNode) => (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.8 }}
-      style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
-    >
-      <Icon name={icon} size={30} />
-      {children}
-    </motion.div>
-  );
-  return (
-    <ArchScreen seed={8}>
-      <motion.div
-        initial={{ clipPath: "inset(0 0 0 100%)" }}
-        whileInView={{ clipPath: "inset(0 0 0 0%)" }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.6, ease: "easeInOut" }}
-        className="arabic"
-        style={{ fontSize: "2.5rem", fontWeight: 700, color: "var(--ink)", marginTop: 4 }}
-      >
-        {config.inshaAllah}
-      </motion.div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", width: "100%", paddingBottom: 10 }}>
-        {row("calendar", 0.6, <div style={{ fontSize: "1.35rem", fontWeight: 600 }}>{config.dateText}</div>)}
-        {row("clock", 1.0, <div style={{ fontSize: "1.35rem", fontWeight: 600 }}>{config.timeText}</div>)}
-        {row(
-          "pin",
-          1.4,
-          <div>
-            <div style={{ fontSize: "1.35rem", fontWeight: 700, letterSpacing: "0.04em" }}>{config.venueName}</div>
-            {config.venueLines.map((l) => (
-              <div key={l} style={{ fontSize: "1.05rem", fontWeight: 600, lineHeight: 1.3 }}>{l}</div>
-            ))}
-          </div>
-        )}
-      </div>
-    </ArchScreen>
-  );
-}
-
-/* ───────── Countdown, calendar, map, RSVP ───────── */
+/* ═════════ 6. COUNTDOWN ═════════ */
 function useCountdown(iso: string) {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
@@ -239,60 +245,109 @@ function useCountdown(iso: string) {
   }, []);
   if (now === null) return ["–", "–", "–", "–"];
   const d = Math.max(0, new Date(iso).getTime() - now);
-  return [Math.floor(d / 864e5), Math.floor((d / 36e5) % 24), Math.floor((d / 6e4) % 60), Math.floor((d / 1e3) % 60)].map((n) => String(n).padStart(2, "0"));
+  return [String(Math.floor(d / 864e5)), ...[Math.floor((d / 36e5) % 24), Math.floor((d / 6e4) % 60), Math.floor((d / 1e3) % 60)].map((n) => String(n).padStart(2, "0"))];
 }
 
+export function Countdown() {
+  const c = useCountdown(config.dateISO);
+  const labels = ["Days", "Hours", "Minutes", "Seconds"];
+  return (
+    <section style={{ position: "relative", padding: "40px 16px 36px", background: "var(--white)", textAlign: "center" }}>
+      <motion.div {...fade()}>
+        <div className="script" style={{ fontSize: "2.4rem" }}>Until Our Celebration</div>
+        <Flourish width={180} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontStyle: "italic", fontSize: "1.15rem", color: "var(--ink-soft)", marginTop: 4 }}>
+          Counting every heartbeat
+          <svg className="heartbeat" width="16" height="15" viewBox="0 0 24 22" aria-hidden>
+            <path d="M12 21 C 5 15, 0 11, 0 6 A 6 6 0 0 1 12 4 A 6 6 0 0 1 24 6 C 24 11, 19 15, 12 21Z" fill="url(#gold)" />
+          </svg>
+        </div>
+      </motion.div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 24 }}>
+        {c.map((n, i) => (
+          <motion.div
+            key={i}
+            {...fade(0.15 + i * 0.12, 26)}
+            style={{
+              width: 74,
+              padding: "14px 0 10px",
+              borderRadius: 10,
+              background: "linear-gradient(160deg,#fffdf9,#f3eee6)",
+              border: "1px solid var(--gold-soft)",
+              boxShadow: "inset 1px 1px 3px rgba(150,130,100,.25), inset -1px -1px 2px #fff, 0 6px 14px rgba(140,110,60,.15)",
+            }}
+          >
+            <div style={{ height: "2.3rem", overflow: "hidden", position: "relative" }}>
+              <AnimatePresence initial={false} mode="popLayout">
+                <motion.div
+                  key={n}
+                  initial={{ y: "-100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "100%", opacity: 0 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ fontSize: "2rem", lineHeight: "2.3rem", fontWeight: 500, fontVariantNumeric: "tabular-nums", color: "var(--ink)" }}
+                >
+                  {n}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div style={{ width: 28, height: 1, margin: "6px auto", background: "linear-gradient(90deg, transparent, var(--gold), transparent)" }} />
+            <div className="caps" style={{ fontSize: ".5rem", letterSpacing: ".2em", color: "var(--ink-soft)" }}>{labels[i]}</div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ═════════ 7. LOCATION + RSVP ═════════ */
 function downloadIcs() {
   const start = new Date(config.dateISO);
   const end = new Date(start.getTime() + config.durationHours * 36e5);
   const f = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
   const ics = [
-    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Wedding Invite//EN", "BEGIN:VEVENT",
-    `UID:${start.getTime()}@wedding-invite`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
-    `SUMMARY:Wedding – ${config.bride} & ${config.groom}`,
-    `LOCATION:${[config.venueName, ...config.venueLines].join(", ")}`,
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Nikkah Invite//EN", "BEGIN:VEVENT",
+    `UID:${start.getTime()}@nikkah-invite`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
+    `SUMMARY:${config.ceremony} – ${config.brideShort} & ${config.groomShort}`, `LOCATION:${config.venue}, ${config.city}`,
     "END:VEVENT", "END:VCALENDAR",
   ].join("\r\n");
-  const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
   const a = document.createElement("a");
-  a.href = url;
-  a.download = "wedding.ics";
+  a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  a.download = "nikkah.ics";
   a.click();
-  URL.revokeObjectURL(url);
 }
 
-export function Closing() {
-  const c = useCountdown(config.dateISO);
-  const labels = ["Days", "Hours", "Minutes", "Seconds"];
+export function Location() {
   const wa = config.whatsapp
-    ? `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(`Assalamu Alaikum! I'll be attending the wedding of ${config.bride} & ${config.groom} in sha Allah.`)}`
+    ? `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(`Assalamu Alaikum! In sha Allah I will attend the ${config.ceremony} of ${config.brideShort} & ${config.groomShort}.`)}`
     : "";
   return (
-    <section style={{ position: "relative", padding: "64px 26px 70px", textAlign: "center", background: "radial-gradient(ellipse at 50% 0%, #fffafb 0%, #f9e7ea 60%, #f2d6db 100%)" }}>
-      <Sparkles count={8} seed={12} />
-      <Write text="Counting the days" className="script" style={{ fontSize: "2.2rem", color: "var(--gold-dark)" }} />
-      <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 22 }}>
-        {c.map((n, i) => (
-          <motion.div
-            key={labels[i]}
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.12 }}
-            style={{ width: 74, padding: "14px 0 10px", border: "1px solid rgba(199,112,127,.55)", borderRadius: "40px 40px 6px 6px", background: "rgba(255,248,249,.7)" }}
-          >
-            <div style={{ fontSize: "1.9rem", fontWeight: 600, fontVariantNumeric: "tabular-nums", color: "var(--ink)" }}>{n}</div>
-            <div style={{ fontFamily: "var(--caps)", fontSize: "0.5rem", letterSpacing: "0.18em", color: "var(--gold-dark)" }}>{labels[i].toUpperCase()}</div>
-          </motion.div>
-        ))}
+    <section style={{ position: "relative", background: "var(--white)", textAlign: "center" }}>
+      <div style={{ position: "absolute", top: 0, right: -20, width: 120, height: 200, opacity: 0.95 }}>
+        <svg className="floral-sway" style={{ animationDelay: "-4.7s" }} viewBox="0 0 100 170" width="100%" height="100%" overflow="visible"><g transform="translate(100 0) rotate(90)"><FloralCorner seed={41} /></g></svg>
       </div>
-      <div style={{ display: "grid", gap: 10, marginTop: 34, maxWidth: 300, marginInline: "auto" }}>
-        <a className="btn solid" href={config.mapUrl} target="_blank" rel="noreferrer"><Icon name="pin" size={16} />View Location</a>
-        <button className="btn" onClick={downloadIcs}><Icon name="calendar" size={16} />Add to Calendar</button>
-        {wa && <a className="btn" href={wa} target="_blank" rel="noreferrer">RSVP on WhatsApp</a>}
+      <div style={{ padding: "50px 30px 30px" }}>
+        <motion.div {...fade()}>
+          <div className="script" style={{ fontSize: "2.5rem" }}>Location</div>
+          <Flourish width={150} />
+        </motion.div>
+        <motion.div {...fade(0.1)} className="caps" style={{ fontSize: ".7rem", letterSpacing: ".25em", color: "var(--gold-dark)", marginTop: 10 }}>{config.timeText}</motion.div>
+        <motion.div {...fade(0.15)} style={{ fontSize: "1.45rem", letterSpacing: ".04em", marginTop: 10 }}>{config.venue}</motion.div>
+        <motion.div {...fade(0.25)} style={{ fontSize: "1.15rem", lineHeight: 1.35, color: "var(--ink-soft)" }}>{config.city}</motion.div>
+        <motion.div {...fade(0.35)} style={{ display: "grid", gap: 10, maxWidth: 290, margin: "26px auto 0" }}>
+          <a className="btn solid" href={config.mapUrl} target="_blank" rel="noreferrer">Get Directions</a>
+          <button className="btn" onClick={downloadIcs}>Add to Calendar</button>
+          {wa && <a className="btn" href={wa} target="_blank" rel="noreferrer">RSVP on WhatsApp</a>}
+        </motion.div>
       </div>
-      <Write text="Your presence and prayers will make our day complete." delay={0.2} style={{ fontSize: "1.15rem", fontStyle: "italic", fontWeight: 500, marginTop: 40, color: "var(--ink-soft)" }} />
-      <Write text={`${config.bride} & ${config.groom}`} className="script" delay={0.6} step={0.12} style={{ fontSize: "2rem", color: "var(--gold-dark)", marginTop: 14 }} />
+      <motion.div {...fade(0.1)} style={{ padding: "6px 0 26px" }}>
+        <div className="script shimmer on-gold" style={{ fontSize: "2.2rem", color: "var(--gold-dark)", display: "inline-block" }}>{config.brideShort} &amp; {config.groomShort}</div>
+        <div className="caps" style={{ fontSize: ".55rem", letterSpacing: ".3em", color: "var(--ink-soft)", marginTop: 4 }}>Your duas are our greatest gift</div>
+      </motion.div>
+      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }} style={{ position: "relative", height: 280 }}>
+        <PalaceScene />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--white) 0%, transparent 30%)" }} />
+      </motion.div>
     </section>
   );
 }

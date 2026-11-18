@@ -1,41 +1,46 @@
 // ─────────────────────────────────────────────────────────────
-//  Edit everything about your wedding invitation here.
+//  Edit everything about your Nikkah invitation here.
 // ─────────────────────────────────────────────────────────────
 
 export const config = {
-  // Couple (shown in this order on the invitation)
-  bride: "Fathima A",
-  brideParents: "", // e.g. "D/o Mr. … & Mrs. …" — leave "" to hide
+  ceremony: "Nikkah Ceremony",
+
   groom: "Muhammed Thanseem C",
-  groomParents: "", // e.g. "S/o Mr. … & Mrs. …" — leave "" to hide
-  initials: "F T", // shown on the wax seal
+  groomShort: "Thanseem",
+  groomParents: "Late Abdul Kareem C & Thahira",
+  bride: "Fathima A",
+  brideShort: "Fathima",
+  brideParents: "Abdul Latheef & Sabeera",
 
-  // Event (India time, +05:30, so the countdown & calendar file are right for guests anywhere)
-  dateISO: "2026-12-20T16:00:00+05:30",
-  durationHours: 4,
-  dateText: "20 December 2026",
+  // Event date/time (local). Used by the scratch cards, countdown & calendar.
+  dateISO: "2026-12-20T16:00:00",
   timeText: "4 PM onwards",
-  venueName: "Pulakkunnath House",
-  venueLines: ["Valakettu, Cherapuram"],
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=Pulakkunnath+House+Valakettu+Cherapuram",
+  durationHours: 5,
 
-  // RSVP via WhatsApp (country code + number, digits only). Leave "" to hide.
+  // Optional: put your own photo in /public (e.g. "/hero.jpg") to replace the illustrated scene.
+  heroImage: "",
+
+  welcomeNote:
+    "Dear friends and family, with hearts full of gratitude we would love for you to join us for an evening of love, laughter, duas and unforgettable memories as we begin our forever.",
+
+  verseArabic: "وَخَلَقْنَاكُمْ أَزْوَاجًا",
+  verseEnglish: "“And We created you in pairs.”",
+  verseRef: "(Surah An-Naba 78:8)",
+
+  timeline: [
+    { time: "6:00 pm", title: "Guest Arrival and Welcome Drinks", art: "doors" },
+    { time: "6:30 pm", title: "Bride Entrance", art: "bride" },
+    { time: "7:00 pm", title: "Nikkah", art: "rings" },
+    { time: "7:30 pm", title: "Salat al Isha", art: "mosque" },
+    { time: "8:30 pm", title: "Buffet Opening", art: "cloche" },
+  ] as { time: string; title: string; art: "doors" | "bride" | "rings" | "mosque" | "cloche" }[],
+
+  city: "Valakettu, Cherapuram",
+  venue: "Pulakkunnath House",
+  mapUrl: "https://www.google.com/maps/dir/?api=1&destination=11.634858,75.7211581",
+
+  // RSVP via WhatsApp: country code + number, digits only (e.g. "919876543210"). "" hides it.
   whatsapp: "",
 
-  // Optional background music: drop an mp3 at /public/music.mp3
   musicSrc: "/music.mp3",
-
-  // Text
-  title: "Wedding Ceremony",
-  blessing: "With the blessings of Allah and the love of our families,",
-  inviteLine: "we joyfully invite you to celebrate the wedding of",
-  and: "And",
-
-  bismillah: "بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
-  verseArabic:
-    "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",
-  verseEnglish:
-    "And among His signs is that He created for you spouses from among yourselves so that you may find tranquility in them, and He placed between you affection and mercy.",
-  verseRef: "(Surah Ar-Rum 30:21)",
-  inshaAllah: "إِن شَاءَ ٱللَّٰه",
 };

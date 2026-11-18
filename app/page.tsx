@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Defs } from "@/components/Art";
 import Envelope from "@/components/Envelope";
-import { Bismillah, Verse, Details, WhenWhere, Closing } from "@/components/Sections";
+import { Petals } from "@/components/Effects";
+import { Welcome, TheDate, InviteCard, Verse, Timeline, Countdown, Location } from "@/components/Sections";
 import { config } from "@/lib/config";
 
 export default function Page() {
@@ -34,21 +35,25 @@ export default function Page() {
       {!opened && <Envelope onOpen={play} onDone={() => setOpened(true)} />}
 
       {hasMusic && opened && (
-        <button className="pill" style={{ bottom: 16, right: "max(14px, calc(50vw - 240px + 14px))" }} onClick={toggle} aria-label={playing ? "Pause music" : "Play music"}>
+        <button className="pill" style={{ bottom: 18, right: "max(16px, calc(50vw - 240px + 16px))" }} onClick={toggle} aria-label={playing ? "Pause music" : "Play music"}>
           {playing ? (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="3" width="3" height="10" /><rect x="10" y="3" width="3" height="10" /></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" /><rect x="9.5" y="2" width="3.5" height="12" /></svg>
           ) : (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z" /></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z" /></svg>
           )}
         </button>
       )}
 
+      {opened && <Petals />}
+
       <main className="page">
-        <Bismillah />
+        <Welcome />
+        <TheDate />
+        <InviteCard />
         <Verse />
-        <Details />
-        <WhenWhere />
-        <Closing />
+        <Timeline />
+        <Countdown />
+        <Location />
       </main>
     </>
   );

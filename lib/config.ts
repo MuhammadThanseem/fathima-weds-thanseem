@@ -1,9 +1,9 @@
 // ─────────────────────────────────────────────────────────────
-//  Edit everything about your Nikkah invitation here.
+//  Edit everything about your wedding invitation here.
 // ─────────────────────────────────────────────────────────────
 
 export const config = {
-  ceremony: "Nikkah Ceremony",
+  ceremony: "Wedding Ceremony",
 
   groom: "Muhammed Thanseem C",
   groomShort: "Thanseem",
@@ -19,6 +19,8 @@ export const config = {
 
   // Optional: put your own photo in /public (e.g. "/hero.jpg") to replace the illustrated scene.
   heroImage: "",
+  // Show the illustrated bride & groom walking toward the mosque on the first page.
+  heroCouple: false,
 
   welcomeNote:
     "Dear friends and family, with hearts full of gratitude we would love for you to join us for an evening of love, laughter, duas and unforgettable memories as we begin our forever.",
@@ -28,11 +30,10 @@ export const config = {
   verseRef: "(Surah An-Naba 78:8)",
 
   timeline: [
-    { time: "6:00 pm", title: "Guest Arrival and Welcome Drinks", art: "doors" },
-    { time: "6:30 pm", title: "Bride Entrance", art: "bride" },
-    { time: "7:00 pm", title: "Nikkah", art: "rings" },
-    { time: "7:30 pm", title: "Salat al Isha", art: "mosque" },
-    { time: "8:30 pm", title: "Buffet Opening", art: "cloche" },
+    { time: "3:30 pm", title: "Guest Arrival & Welcome Drink", art: "doors" },
+    { time: "4:00 pm", title: "Nikah", art: "rings" },
+    { time: "4:30 pm", title: "Bride Entrance", art: "bride" },
+    { time: "7:00 pm", title: "Buffet Opening", art: "cloche" },
   ] as { time: string; title: string; art: "doors" | "bride" | "rings" | "mosque" | "cloche" }[],
 
   city: "Valakettu, Cherapuram",

@@ -280,7 +280,7 @@ function MosqueBuilding({ base }: { base: number }) {
   );
 }
 
-export function MosqueScene() {
+export function MosqueScene({ couple = true }: { couple?: boolean }) {
   const W = 300, H = 520, base = 300;
   const walk = `M141 ${base} L159 ${base} L 214 ${H} L 86 ${H}Z`;
   return (
@@ -335,6 +335,7 @@ export function MosqueScene() {
       <path d={`M141 ${base} L 86 ${H} M159 ${base} L 214 ${H}`} stroke="#d9c9ae" strokeWidth="1" />
 
       {/* couple from behind, walking toward the mosque */}
+      {couple && (
       <g transform="translate(146 452) scale(0.74)">
         <ellipse cx="6" cy="6" rx="70" ry="7" fill="#b8ad9e" opacity="0.25" filter="url(#soft)" />
         {/* groom */}
@@ -359,6 +360,7 @@ export function MosqueScene() {
         <path d="M10 -168 C 8 -140, 10 -60, 6 8" fill="none" stroke="#d8c08a" strokeWidth="1.2" strokeDasharray="1.5 2.5" />
         <path d="M0 -112 C 6 -108, 10 -108, 14 -112" stroke="#b98f73" strokeWidth="4" strokeLinecap="round" fill="none" />
       </g>
+      )}
     </svg>
   );
 }

@@ -32,7 +32,7 @@ export function Welcome() {
           {config.heroImage ? (
             <image href={config.heroImage} x="62" y="70" width="276" height="690" preserveAspectRatio="xMidYMid slice" />
           ) : (
-            <svg x="40" y="70" width="320" height="690" viewBox="0 0 300 520" preserveAspectRatio="xMidYMid slice"><MosqueScene /></svg>
+            <svg x="40" y="70" width="320" height="690" viewBox="0 0 300 520" preserveAspectRatio="xMidYMid slice"><MosqueScene couple={config.heroCouple} /></svg>
           )}
           </g>
           <rect x="62" y="70" width="276" height="300" fill="url(#sky)" opacity="0.25" />

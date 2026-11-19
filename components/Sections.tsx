@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Bismillah, Dove, Icon, Monogram, SkyScene } from "./Art";
+import { Bismillah, Dove, Icon, Monogram, SkyScene, monogramLetters } from "./Art";
 import { config } from "@/lib/config";
 
 const fade = (delay = 0, y = 24) => ({
@@ -29,8 +29,8 @@ export function Nav({ show }: { show: boolean }) {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 40, display: "flex", justifyContent: "center", pointerEvents: show ? "auto" : "none" }}
     >
       <div style={{ width: "100%", maxWidth: 480, height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", background: "linear-gradient(180deg, rgba(18,24,43,.92), rgba(30,40,70,.82))", backdropFilter: "blur(8px)", borderBottom: "1px solid rgba(201,164,92,.18)" }}>
-        <a href="#top" aria-label="Top" className="gold-text" style={{ fontFamily: "var(--ruqaa)", fontWeight: 700, fontSize: "1.5rem", textDecoration: "none", lineHeight: 1 }}>
-          {config.monogram}
+        <a href="#top" aria-label="Top" className="gold-text" style={{ fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: "1.3rem", textDecoration: "none", lineHeight: 1 }}>
+          {monogramLetters().join("")}
         </a>
         <div style={{ display: "flex", gap: 18 }}>
           {[["Nikah", "#nikah"], ["Family", "#family"], ["Wishes", "#wishes"]].map(([l, h]) => (
@@ -50,7 +50,7 @@ export function Hero({ ready }: { ready: boolean }) {
         {config.heroImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <>
-            <img src={config.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "75% 100%" }} />
+            <img src={config.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "55% 50%" }} />
             {/* navy tint so the photo sits in the invitation's palette */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(30,40,70,.55) 0%, rgba(43,61,104,.18) 38%, rgba(43,61,104,.05) 60%, rgba(30,40,70,.45) 100%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "rgba(60,80,130,.12)", mixBlendMode: "multiply" }} />
@@ -224,7 +224,7 @@ export function EventCard() {
             <div>
               <div className="caps" style={{ fontSize: ".48rem", color: "var(--ink-soft)" }}>{r.label}</div>
               <div style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: ".04em", marginTop: 3 }}>{r.main}</div>
-              <div style={{ fontStyle: "italic", fontSize: ".95rem", color: "var(--ink-soft)", marginTop: 2, lineHeight: 1.35 }}>{r.sub}</div>
+              {r.sub && <div style={{ fontStyle: "italic", fontSize: ".95rem", color: "var(--ink-soft)", marginTop: 2, lineHeight: 1.35 }}>{r.sub}</div>}
             </div>
           </div>
         ))}

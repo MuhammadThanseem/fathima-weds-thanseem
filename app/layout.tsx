@@ -9,6 +9,7 @@ import "@fontsource/amiri/arabic-400.css";
 import "@fontsource/amiri/arabic-700.css";
 import "@fontsource/aref-ruqaa/arabic-400.css";
 import "@fontsource/aref-ruqaa/arabic-700.css";
+import "@fontsource/noto-nastaliq-urdu/arabic-700.css";
 import "./globals.css";
 import { config } from "@/lib/config";
 

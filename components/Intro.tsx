@@ -134,8 +134,8 @@ export default function Intro({ onOpen, onDone }: { onOpen: () => void; onDone: 
                     paddingBottom: "12%",
                   }}
                 >
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.2 }}>
-                    <Bismillah size={1.7} />
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.2 }} style={{ width: "100%" }}>
+                    <Bismillah size={2.2} />
                   </motion.div>
                   <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.6 }}>
                     <Monogram size={112} />

@@ -13,6 +13,7 @@
   --caps: "Marcellus", "Cormorant Garamond", serif;
   --arabic: "Amiri", serif;
   --ruqaa: "Aref Ruqaa", "Amiri", serif;
+  --nastaliq: "Noto Nastaliq Urdu", "Aref Ruqaa", serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 60px; }
@@ -114,3 +115,20 @@ body.locked { overflow: hidden; }
 @keyframes drift { from { transform: translateX(-6%) } to { transform: translateX(6%) } }
 @keyframes flap { 0%,100% { transform: scaleY(1) } 50% { transform: scaleY(-.6) } }
 @keyframes orbit { to { transform: rotate(360deg) } }
+
+/* Gold calligraphic Bismillah (see Bismillah in components/Art.tsx) */
+.bismillah {
+  display: flex; direction: rtl; align-items: flex-end; white-space: nowrap;
+  font-family: var(--arabic); font-weight: 700;
+  filter: drop-shadow(0 1.5px 0 rgba(60,40,10,.75)) drop-shadow(0 0 8px rgba(201,164,92,.3));
+}
+.bis-word {
+  line-height: 1.9;
+  background: linear-gradient(180deg, #fbeab0 0%, #e2bd6a 35%, #b38735 65%, #f0d58e 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.bis-line { flex: 1; position: relative; align-self: stretch; min-width: 2em; }
+.bis-line i {
+  position: absolute; left: -1px; right: -1px; bottom: .725em; height: .09em;
+  background: linear-gradient(180deg, #fbeab0, #d9b260 50%, #a87b2c);
+}

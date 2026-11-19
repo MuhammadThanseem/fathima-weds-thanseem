@@ -65,6 +65,9 @@ export function Defs() {
   );
 }
 
+/* Monogram letters, e.g. "ف" and "ت" */
+export const monogramLetters = () => [...config.monogram.replace(/\s/g, "")];
+
 /* ───────── Gold Arabic monogram in a leafy ring ───────── */
 export function Monogram({ size = 120, orbit = false }: { size?: number; orbit?: boolean }) {
   return (
@@ -95,24 +98,28 @@ export function Monogram({ size = 120, orbit = false }: { size?: number; orbit?:
       </svg>
       <div
         className="gold-text"
-        style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: "var(--ruqaa)", fontWeight: 700, fontSize: size * 0.38, lineHeight: 1, paddingBottom: size * 0.06 }}
+        style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: size * 0.4, lineHeight: 1, paddingBottom: size * 0.08, filter: "drop-shadow(0 1px 0 rgba(60,40,10,.6))" }}
       >
-        {config.monogram}
+        {/* joined calligraphic monogram, e.g. "فت" */}
+        {monogramLetters().join("")}
       </div>
     </div>
   );
 }
 
-/* ───────── Gold Bismillah with a long calligraphic stroke ───────── */
+/* ───────── Gold Bismillah: "بسـ" with a long calligraphic baseline, then the rest ───────── */
 export function Bismillah({ size = 1.9, align = "center" }: { size?: number; align?: "center" | "left" }) {
+  // Split after the seen (س) so the kashida can stretch to fill the width, like hand-written calligraphy.
+  const text = config.bismillah.trim();
+  const i = text.indexOf("ْ", text.indexOf("س"));
+  const cut = i > 0 ? i + 1 : text.indexOf("س") + 1;
+  const head = text.slice(0, cut) + "ـ";
+  const tail = "ـ" + text.slice(cut);
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: align === "center" ? "center" : "flex-start", direction: "rtl", gap: 0 }}>
-      <span className="gold-text" style={{ fontFamily: "var(--ruqaa)", fontWeight: 700, fontSize: `${size}rem`, lineHeight: 1.4, whiteSpace: "nowrap" }}>
-        {config.bismillah}
-      </span>
-      <svg width={size * 30} height={size * 14} viewBox="0 0 60 14" style={{ marginRight: -4 }}>
-        <path d="M60 10 C 40 11, 20 11, 2 9 C 0 8, 1 6, 3 6" stroke="url(#gold)" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      </svg>
+    <div className="bismillah" style={{ fontSize: `min(${size}rem, calc((100vw - 56px) / 10.5))`, width: "100%", maxWidth: align === "center" ? 420 : undefined, margin: align === "center" ? "0 auto" : undefined }} aria-label={text}>
+      <span className="bis-word" aria-hidden>{head}</span>
+      <span className="bis-line" aria-hidden><i /></span>
+      <span className="bis-word" aria-hidden>{tail}</span>
     </div>
   );
 }

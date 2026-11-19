@@ -7,27 +7,27 @@ export const config = {
 
   bride: "Fathima",
   brideFull: "Fathima A",
-  brideParents: "D/O Mrs Mother's Name & Mr Father's Name",
+  brideParents: "D/O Abdul Latheef & Sabeera",
   groom: "Thanseem",
   groomFull: "Muhammed Thanseem C",
-  groomParents: "S/O Mrs Mother's Name & Mr Father's Name",
+  groomParents: "S/O Late Abdul Kareem & Thahira",
 
   // Arabic monogram letters shown in the gold circle (ف = F, ت = T)
   monogram: "فت",
 
   // Event
-  dateISO: "2026-12-20T18:30:00",
+  dateISO: "2026-12-20T16:00:00",
   durationHours: 4,
-  timeText: "6:30 PM Onwards",
-  timeNote: "After Namaz E Maghrib InshaAllah",
-  venueName: "@Venue Name",
-  venueAddress: "Street, Landmark, Area, City",
-  mapUrl: "https://maps.google.com/?q=Kerala",
+  timeText: "4 PM Onwards",
+  timeNote: "",
+  venueName: "Pulakkunnath House",
+  venueAddress: "Valakettu, Cherapuram",
+  mapUrl: "https://maps.app.goo.gl/EgSetyvyy9kBhPjQ9?g_st=aw",
 
   // Blessings of the elders
   elders: [
-    { label: "Dada & Dadi", names: "Late Grandmother's Name & Late Grandfather's Name" },
-    { label: "Nana & Nani", names: "Grandmother's Name & Grandfather's Name" },
+    { label: "Dada & Dadi", names: "Late Kunhabdulla Musliyar & Late Fathima" },
+    { label: "Nana & Nani", names: "Kunhabdulla Musliyar & Sumayya" },
   ],
   invitationLine:
     "Request your gracious presence to greet and bless their beloved granddaughter on the auspicious occasion of her Nikah",
@@ -38,7 +38,7 @@ export const config = {
   contact: "+91 00000 00000",
 
   // Optional photos (put files in /public): couple walking in the sky, and a "hands" photo for the blessings card
-  heroImage: "/hero.jpg",
+  heroImage: "/hero-girl.jpg",
   blessingImage: "/blessing-couple.jpg",
   blessingImageCredit: "",
 

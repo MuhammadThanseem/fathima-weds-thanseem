@@ -1,13 +1,13 @@
 {
-  "name": "nikkah-invitation",
+  "name": "navy-nikah-invitation",
   "version": "1.0.0",
   "private": true,
   "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
   "dependencies": {
     "@fontsource/amiri": "^5.1.0",
+    "@fontsource/aref-ruqaa": "^5.1.0",
     "@fontsource/cormorant-garamond": "^5.1.0",
-    "@fontsource/pinyon-script": "^5.1.0",
-    "@fontsource/cinzel": "^5.1.0",
+    "@fontsource/marcellus": "^5.1.0",
     "framer-motion": "^11.11.0",
     "next": "^15.0.3",
     "react": "^19.0.0",

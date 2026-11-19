@@ -203,9 +203,9 @@ function Card() {
       <div style={{ position: "absolute", inset: "3.6cqw", border: "0.5px solid var(--gold-soft)", pointerEvents: "none" }} />
       <div className="arabic" style={{ fontSize: "5cqw", color: "var(--gold-dark)" }}>بِسْمِ ٱللَّٰهِ</div>
       <div className="caps" style={{ fontSize: "2.6cqw", letterSpacing: ".3em" }}>{config.ceremony}</div>
-      <div className="script shimmer" style={{ fontSize: "11cqw", lineHeight: 1.1 }}>{config.brideShort}</div>
+      <div className="script shimmer" style={{ fontSize: "11cqw", lineHeight: 1.1 }}>{config.bride}</div>
       <div className="script" style={{ fontSize: "6cqw", color: "var(--gold-dark)" }}>&amp;</div>
-      <div className="script shimmer" style={{ fontSize: "11cqw", lineHeight: 1.1, animationDelay: "1s" }}>{config.groomShort}</div>
+      <div className="script shimmer" style={{ fontSize: "11cqw", lineHeight: 1.1, animationDelay: "1s" }}>{config.groom}</div>
       <div style={{ width: "30cqw", height: 1, background: "linear-gradient(90deg, transparent, var(--gold), transparent)", margin: "1cqw 0" }} />
       <div className="caps" style={{ fontSize: "2.8cqw", letterSpacing: ".28em", color: "var(--gold-dark)" }}>
         {d.toLocaleDateString("en", { day: "2-digit", month: "long", year: "numeric" })}

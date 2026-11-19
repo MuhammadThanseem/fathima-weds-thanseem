@@ -1,54 +1,58 @@
 // ─────────────────────────────────────────────────────────────
-//  Edit everything about your wedding invitation here.
+//  Edit everything about your Nikah invitation here.
 // ─────────────────────────────────────────────────────────────
 
 export const config = {
-  ceremony: "Wedding Ceremony",
+  ceremony: "Nikah Ceremony",
 
-  groom: "Muhammed Thanseem C",
-  groomShort: "Thanseem",
-  groomParents: "Late Abdul Kareem C & Thahira",
-  bride: "Fathima A",
-  brideShort: "Fathima",
-  brideParents: "Abdul Latheef & Sabeera",
+  bride: "Fathima",
+  brideFull: "Fathima A",
+  brideParents: "D/O Mrs Mother's Name & Mr Father's Name",
+  groom: "Thanseem",
+  groomFull: "Muhammed Thanseem C",
+  groomParents: "S/O Mrs Mother's Name & Mr Father's Name",
 
-  // Event date/time (local). Used by the scratch cards, countdown & calendar.
-  dateISO: "2026-12-20T16:00:00",
-  timeText: "4 PM onwards",
-  durationHours: 5,
+  // Arabic monogram letters shown in the gold circle (ف = F, ت = T)
+  monogram: "فت",
 
-  // Optional: put your own photo in /public (e.g. "/hero.jpg") to replace the illustrated scene.
-  heroImage: "",
-  // Show the illustrated bride & groom walking toward the mosque on the first page.
-  heroCouple: false,
+  // Event
+  dateISO: "2026-12-20T18:30:00",
+  durationHours: 4,
+  timeText: "6:30 PM Onwards",
+  timeNote: "After Namaz E Maghrib InshaAllah",
+  venueName: "@Venue Name",
+  venueAddress: "Street, Landmark, Area, City",
+  mapUrl: "https://maps.google.com/?q=Kerala",
 
-  welcomeNote:
-    "Dear friends and family, with hearts full of gratitude we would love for you to join us for an evening of love, laughter, duas and unforgettable memories as we begin our forever.",
+  // Blessings of the elders
+  elders: [
+    { label: "Dada & Dadi", names: "Late Grandmother's Name & Late Grandfather's Name" },
+    { label: "Nana & Nani", names: "Grandmother's Name & Grandfather's Name" },
+  ],
+  invitationLine:
+    "Request your gracious presence to greet and bless their beloved granddaughter on the auspicious occasion of her Nikah",
 
-  verseArabic: "وَخَلَقْنَاكُمْ أَزْوَاجًا",
-  verseEnglish: "“And We created you in pairs.”",
-  verseRef: "(Surah An-Naba 78:8)",
+  // "Awaiting to welcome you"
+  hosts: ["Mr Family Member", "Mr Family Member", "Mr Family Member", "Mr Family Member", "Mr Family Member"],
+  familyName: "& Family",
+  contact: "+91 00000 00000",
 
-  timeline: [
-    { time: "3:30 pm", title: "Guest Arrival & Welcome Drink", art: "doors" },
-    { time: "4:00 pm", title: "Nikah", art: "rings" },
-    { time: "4:30 pm", title: "Bride Entrance", art: "bride" },
-    { time: "7:00 pm", title: "Buffet Opening", art: "cloche" },
-  ] as { time: string; title: string; art: "doors" | "bride" | "rings" | "mosque" | "cloche" }[],
+  // Optional photos (put files in /public): couple walking in the sky, and a "hands" photo for the blessings card
+  heroImage: "/hero.jpg",
+  blessingImage: "/blessing-couple.jpg",
+  blessingImageCredit: "",
 
-  city: "Valakettu, Cherapuram",
-  venue: "Pulakkunnath House",
-  // Photo at the bottom of the Location section. Put any image in /public and set its path here
-  // (e.g. a photo of the house). "" shows the illustrated scene instead.
-  // Default: Jumeirah Al Qasr, Dubai, by Aidas U. — CC BY 3.0, so the credit below must stay visible
-  // while this photo is used (https://commons.wikimedia.org/wiki/File:Jumeirah_Al_Qasr_-_panoramio_(6).jpg).
-  // Using your own photo? Set locationImageCredit to "" to hide the credit.
-  locationImage: "/location.jpg",
-  locationImageCredit: "Photo: Aidas U. · CC BY 3.0",
-  mapUrl: "https://www.google.com/maps/dir/?api=1&destination=11.634858,75.7211581",
-
-  // RSVP via WhatsApp: country code + number, digits only (e.g. "919876543210"). "" hides it.
+  // WhatsApp number for wishes / RSVP: country code + number, digits only. "" hides the button.
   whatsapp: "",
+  instagram: "",
 
   musicSrc: "/music.mp3",
+
+  bismillah: "بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+  sacredLine: "In the Sacred Name of Rabbul Alameen, with endless love and salutations upon Rehmatul Lil Alameen ﷺ.",
+  verseArabic: "وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ",
+  verseEnglish: "“And be mindful of Allah, through whom you ask one another, and maintain family ties.”",
+  verseRef: "Surah An-Nisa (4:1)",
+  duaArabic: "بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+  duaEnglish: "“May Allah bless you both, and shower His blessings upon you, and unite you together in goodness.”",
 };

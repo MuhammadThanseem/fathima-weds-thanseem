@@ -1,25 +1,26 @@
-# Nikkah Invitation (white embossed & gold) · Next.js
+# Navy & Gold Nikah Invitation · Next.js
 
 What guests see, in order:
-1. **Embossed white envelope** with a white wax seal. Tap → the flap lifts with the seal, golden light bursts out, and the screen fades to white.
-2. **Welcome**: a carved Mughal arch framing the couple walking toward a white mosque, with swaying lanterns and white roses.
-3. **The Date**: three gold-foil **scratch cards** (Day / Month / Year). Guests scratch with a finger to reveal the date. Double-tap also reveals.
-4. **Embossed arch card**: Bismillah, both names and parents.
-5. Welcome note + **Surah An-Naba 78:8**.
-6. **Wedding Timeline** with gold line drawings (entrance, bride, rings, mosque, buffet).
-7. **The Celebration Begins** countdown.
-8. **Location** with Get Directions, Add to Calendar (.ics), optional RSVP on WhatsApp, and a palace-and-palms illustration.
+1. **Navy intro**: gold Bismillah, gold Arabic monogram (ف ت), date and an **Open Invitation** button.
+2. **Opening**: a giant satin bow comes undone (loops fly apart, knot bursts) into a blue sky, and white doves fly up.
+3. **Hero**: the couple walking on clouds among pink, blue and white roses, with the monogram sparkling above. A sticky top menu appears (Nikah · Family · Wishes) and blue petals fall throughout.
+4. **Navy watercolour**: Bismillah and the sacred line, a large monogram, and Surah An-Nisa 4:1.
+5. **Fathima weds Thanseem** with date boxes, then a scrolling name ticker.
+6. **Blush**: countdown, blessings of the elders, and the Nikah event card with **Venue Location** and **Add to Calendar**.
+7. **Two families, one bond**: bride and groom cards with parents.
+8. **Blessings from family and friends**: photo card and the prophetic dua for newlyweds (+ optional "Send your wishes" on WhatsApp).
+9. **Awaiting to welcome you**: hosts, address, contact and footer.
 
 ## Run
 ```bash
 npm install
-npm run dev     # http://localhost:3000   (add ?open to skip the envelope)
+npm run dev     # http://localhost:3000   (add ?open to skip the intro)
 ```
 
 ## Edit
-Everything is in `lib/config.ts`: names, parents, date/time (drives the scratch cards & countdown), timeline, venue, map link, WhatsApp number.
-- Your own photo for the welcome arch: put it in `public/` and set `heroImage: "/hero.jpg"`.
-- Music: add `public/music.mp3`. It starts when the envelope is opened.
+Everything is in `lib/config.ts`: names, parents, grandparents, date/time, venue, hosts, contact, WhatsApp/Instagram.
+- Photos: put files in `public/` and set `heroImage` (couple) and `blessingImage` (hands/rings photo).
+- Music: add `public/music.mp3`. It starts when "Open Invitation" is tapped. The music button only shows when the file exists.
 
 ## Deploy
 Push to GitHub → import on vercel.com.

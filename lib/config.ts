@@ -33,13 +33,13 @@ export const config = {
     "Request your gracious presence to greet and bless their beloved granddaughter on the auspicious occasion of her Nikah",
 
   // "Awaiting to welcome you"
-  hosts: ["Mr Family Member", "Mr Family Member", "Mr Family Member", "Mr Family Member", "Mr Family Member"],
-  familyName: "& Family",
+  hosts: ["Musfira", "Muhammed Razi", "Abdulla Juvaini"],
+  familyName: "PK & MK Family",
   contact: "+91 00000 00000",
 
   // Optional photos (put files in /public): couple walking in the sky, and a "hands" photo for the blessings card
-  heroImage: "/hero-girl.jpg",
-  blessingImage: "/blessing-couple.jpg",
+  heroImage: "/flower.jpeg",
+  blessingImage: "/blessing-illustration.jpg",
   blessingImageCredit: "",
 
   // WhatsApp number for wishes / RSVP: country code + number, digits only. "" hides the button.

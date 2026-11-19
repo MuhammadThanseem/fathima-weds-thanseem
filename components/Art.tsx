@@ -98,10 +98,10 @@ export function Monogram({ size = 120, orbit = false }: { size?: number; orbit?:
       </svg>
       <div
         className="gold-text"
-        style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: size * 0.4, lineHeight: 1, paddingBottom: size * 0.08, filter: "drop-shadow(0 1px 0 rgba(60,40,10,.6))" }}
+        style={{ position: "absolute", inset: 0, display: "flex", direction: "rtl", alignItems: "center", justifyContent: "center", gap: size * 0.04, fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: size * 0.24, lineHeight: 1, paddingBottom: size * 0.08, filter: "drop-shadow(0 1px 0 rgba(60,40,10,.6))" }}
       >
-        {/* joined calligraphic monogram, e.g. "فت" */}
-        {monogramLetters().join("")}
+        {/* separate letters with a small gap, e.g. "ف ت" */}
+        {monogramLetters().map((l, i) => <span key={i}>{l}</span>)}
       </div>
     </div>
   );

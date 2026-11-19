@@ -29,8 +29,8 @@ export function Nav({ show }: { show: boolean }) {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 40, display: "flex", justifyContent: "center", pointerEvents: show ? "auto" : "none" }}
     >
       <div style={{ width: "100%", maxWidth: 480, height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", background: "linear-gradient(180deg, rgba(18,24,43,.92), rgba(30,40,70,.82))", backdropFilter: "blur(8px)", borderBottom: "1px solid rgba(201,164,92,.18)" }}>
-        <a href="#top" aria-label="Top" className="gold-text" style={{ fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: "1.3rem", textDecoration: "none", lineHeight: 1 }}>
-          {monogramLetters().join("")}
+        <a href="#top" aria-label="Top" className="gold-text" style={{ fontFamily: "var(--nastaliq)", fontWeight: 700, fontSize: "1rem", textDecoration: "none", lineHeight: 1, display: "flex", direction: "rtl", gap: 4 }}>
+          {monogramLetters().map((l, i) => <span key={i}>{l}</span>)}
         </a>
         <div style={{ display: "flex", gap: 18 }}>
           {[["Nikah", "#nikah"], ["Family", "#family"], ["Wishes", "#wishes"]].map(([l, h]) => (
@@ -50,7 +50,7 @@ export function Hero({ ready }: { ready: boolean }) {
         {config.heroImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <>
-            <img src={config.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "55% 50%" }} />
+            <img src={config.heroImage} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%" }} />
             {/* navy tint so the photo sits in the invitation's palette */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(30,40,70,.55) 0%, rgba(43,61,104,.18) 38%, rgba(43,61,104,.05) 60%, rgba(30,40,70,.45) 100%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "rgba(60,80,130,.12)", mixBlendMode: "multiply" }} />
@@ -282,10 +282,10 @@ export function Blessings() {
         </div>
         <div className="rule" style={{ margin: "18px auto" }} />
       </motion.div>
-      <motion.div {...fade(0.1)} style={{ position: "relative", borderRadius: 18, overflow: "hidden", aspectRatio: "1 / 0.92", boxShadow: "0 18px 36px rgba(42,51,80,.22)", marginTop: 8, background: "#3e523c" }}>
+      <motion.div {...fade(0.1)} style={{ position: "relative", borderRadius: 18, overflow: "hidden", aspectRatio: "4 / 5", boxShadow: "0 18px 36px rgba(42,51,80,.22)", marginTop: 8, background: "#3e523c" }}>
         {config.blessingImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={config.blessingImage} alt="Barakallahu Lakuma" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 40%" }} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+          <img src={config.blessingImage} alt="Barakallahu Lakuma" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 50%" }} onError={(e) => { e.currentTarget.style.display = "none"; }} />
         ) : (
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 25%, #7f9c74 0%, #5d7656 35%, #3e523c 70%)", display: "grid", placeItems: "center" }}>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 20% 20%, rgba(255,255,255,.25) 0 6%, transparent 12%), radial-gradient(circle at 70% 15%, rgba(255,255,255,.2) 0 5%, transparent 10%), radial-gradient(circle at 85% 40%, rgba(255,255,255,.15) 0 6%, transparent 12%)", filter: "blur(3px)" }} />

@@ -35,7 +35,8 @@ export const config = {
   // "Awaiting to welcome you"
   hosts: ["Musfira", "Muhammed Razi", "Abdulla Juvaini"],
   familyName: "PK & MK Family",
-  contact: "+91 00000 00000",
+  // Phone number shown at the bottom; "" hides it.
+  contact: "",
 
   // Optional photos (put files in /public): couple walking in the sky, and a "hands" photo for the blessings card
   heroImage: "/flower.jpeg",

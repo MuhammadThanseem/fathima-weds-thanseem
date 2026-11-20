@@ -330,8 +330,12 @@ export function Welcome() {
         <div className="caps" style={{ color: "var(--gold)", fontSize: ".55rem" }}>Address</div>
         <div className="caps" style={{ color: "var(--gold-light)", marginTop: 8, fontSize: ".62rem" }}>{config.venueName}</div>
         <div style={{ fontStyle: "italic", color: "#d3d8e8", marginTop: 6, lineHeight: 1.45 }}>{config.venueAddress}</div>
-        <div className="caps" style={{ color: "var(--gold)", fontSize: ".55rem", marginTop: 22 }}>Contact No.</div>
-        <div style={{ color: "#d3d8e8", marginTop: 6, letterSpacing: ".06em" }}>{config.contact}</div>
+        {config.contact && (
+          <>
+            <div className="caps" style={{ color: "var(--gold)", fontSize: ".55rem", marginTop: 22 }}>Contact No.</div>
+            <div style={{ color: "#d3d8e8", marginTop: 6, letterSpacing: ".06em" }}>{config.contact}</div>
+          </>
+        )}
       </motion.div>
       <div style={{ height: 1, background: "rgba(220,226,240,.18)", margin: "36px 0 24px", position: "relative" }} />
       <div className="caps" style={{ color: "#8f97b3", fontSize: ".5rem", position: "relative" }}>With love · {config.bride} &amp; {config.groom}</div>
